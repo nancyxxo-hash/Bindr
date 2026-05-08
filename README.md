@@ -1,7 +1,9 @@
 Bindr
 A professional networking app prototype — connecting the business community with their perfect match.
+
 Mission
 Connecting the business community with their perfect match.
+
 Vision
 Creating sustainable relationships between users.
 
