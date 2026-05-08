@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bindr — Notifications</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo"><span class="logo-mark">B</span><span>Bindr</span></a>
+    <div class="header-actions">
+      <a href="home.html" class="btn btn-ghost">Home</a>
+      <a href="login.html" class="btn btn-secondary">Log Out</a>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sb-logo">Bindr</div>
+      <a href="home.html"><span class="sb-icon">🏠</span> Home</a>
+      <a href="profile.html"><span class="sb-icon">👤</span> Profile</a>
+      <a href="matches.html"><span class="sb-icon">🔗</span> Matches</a>
+      <a href="messages.html"><span class="sb-icon">💬</span> Messages</a>
+      <a href="notifications.html" class="active"><span class="sb-icon">🔔</span> Notifications</a>
+      <a href="dashboard.html"><span class="sb-icon">📊</span> Dashboard</a>
+      <a href="addons.html"><span class="sb-icon">✨</span> Extras</a>
+      <div class="sb-bottom">
+        <a href="map.html"><span class="sb-icon">🗺</span> Map</a>
+        <a href="community.html"><span class="sb-icon">👥</span> Community</a>
+        <a href="content.html"><span class="sb-icon">📰</span> Content</a>
+      </div>
+    </aside>
+
+    <main class="binder-page">
+      <div class="page-header">
+        <div>
+          <span class="crumb">Notifications</span>
+          <h1>Recent activity</h1>
+        </div>
+        <button class="btn btn-secondary">Mark all as read</button>
+      </div>
+
+      <div class="notif-list">
+        <div class="notif-item unread">
+          <div class="notif-icon">💜</div>
+          <div class="notif-body">
+            <strong>You matched with Northwood Studio</strong>
+            <p>Send a message to start the conversation.</p>
+          </div>
+          <span class="notif-time">2m ago</span>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon">💬</div>
+          <div class="notif-body">
+            <strong>New message from Lumina Capital</strong>
+            <p>"Are you raising right now?"</p>
+          </div>
+          <span class="notif-time">12m ago</span>
+        </div>
+        <div class="notif-item unread">
+          <div class="notif-icon">⚡️</div>
+          <div class="notif-body">
+            <strong>Your boost is active</strong>
+            <p>Your profile is featured for the next 30 minutes.</p>
+          </div>
+          <span class="notif-time">1h ago</span>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon">👤</div>
+          <div class="notif-body">
+            <strong>3 new profiles match your filters</strong>
+            <p>Senior design roles · Remote-OK · Series A or B</p>
+          </div>
+          <span class="notif-time">3h ago</span>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon">🎓</div>
+          <div class="notif-body">
+            <strong>Beacon College viewed your profile</strong>
+            <p>They're recruiting for fall 2026 mentorship spots.</p>
+          </div>
+          <span class="notif-time">Yesterday</span>
+        </div>
+        <div class="notif-item">
+          <div class="notif-icon">📰</div>
+          <div class="notif-body">
+            <strong>New from Bindr Content</strong>
+            <p>"How to write a cover letter that gets read" — 5 min read</p>
+          </div>
+          <span class="notif-time">2 days ago</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border:none; padding-top:0;">
+        <span>© 2026 Bindr Inc.</span>
+        <div class="social-icons"><a href="#">ig</a><a href="#">x</a><a href="#">in</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

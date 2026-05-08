@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bindr — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo"><span class="logo-mark">B</span><span>Bindr</span></a>
+    <div class="header-actions">
+      <a href="profile.html" class="btn btn-ghost">Aisha K.</a>
+      <a href="login.html" class="btn btn-secondary">Log Out</a>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <!-- Sidebar tabs -->
+    <aside class="sidebar">
+      <div class="sb-logo">Bindr</div>
+      <a href="home.html" class="active"><span class="sb-icon">🏠</span> Home</a>
+      <a href="profile.html"><span class="sb-icon">👤</span> Profile</a>
+      <a href="matches.html"><span class="sb-icon">🔗</span> Matches</a>
+      <a href="messages.html"><span class="sb-icon">💬</span> Messages</a>
+      <a href="notifications.html"><span class="sb-icon">🔔</span> Notifications</a>
+      <a href="dashboard.html"><span class="sb-icon">📊</span> Dashboard</a>
+      <a href="addons.html"><span class="sb-icon">✨</span> Extras</a>
+      <div class="sb-bottom">
+        <a href="map.html"><span class="sb-icon">🗺</span> Map</a>
+        <a href="community.html"><span class="sb-icon">👥</span> Community</a>
+        <a href="content.html"><span class="sb-icon">📰</span> Content</a>
+      </div>
+    </aside>
+
+    <!-- Main binder page -->
+    <main class="binder-page">
+      <div class="page-header">
+        <div>
+          <span class="crumb">Home</span>
+          <h1>Discover your match</h1>
+        </div>
+        <button id="btnReset" class="btn btn-secondary">Reset Deck</button>
+      </div>
+
+      <div class="match-banner" id="matchBanner">
+        <h3>It's a match! 🎉</h3>
+        <p>You and <span class="match-name">someone</span> matched. Say hello.</p>
+      </div>
+
+      <div class="swipe-stage" id="swipeStage">
+        <div class="swipe-card-wrap">
+          <div class="swipe-card" id="swipeCard">
+            <div class="photo">AK</div>
+            <div class="info">
+              <h2>Aisha Kapoor</h2>
+              <div class="tagline">Senior Product Designer · Toronto</div>
+              <p class="bio">Looking for a startup with strong design culture. 8 years in fintech.</p>
+              <div class="chips"></div>
+            </div>
+          </div>
+          <div class="swipe-controls">
+            <button class="swipe-btn x" id="btnPass" aria-label="Pass">✕</button>
+            <button class="swipe-btn o" id="btnMatch" aria-label="Match">✓</button>
+          </div>
+          <p style="text-align:center; color: var(--muted); font-size: 0.84rem; margin-top: 14px;">
+            Tip: use ← and → keys to swipe
+          </p>
+        </div>
+
+        <div id="swipeEmpty" class="swipe-empty" style="display:none;">
+          <h2>You're all caught up</h2>
+          <p>Check back soon — new profiles are added every day.</p>
+          <p style="margin-top: 16px;">
+            <button onclick="document.getElementById('btnReset').click()" class="btn btn-primary">Reload Deck</button>
+            <a href="matches.html" class="btn btn-secondary">See Matches</a>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- App download -->
+  <section class="cta-stripe" style="margin-top: 0;">
+    <h2>Take Bindr with you</h2>
+    <div class="store-btns">
+      <a href="#" class="store-btn"><span style="font-size:1.4rem;">🍎</span><span><span class="small">Download on the</span><br/><span class="big">App Store</span></span></a>
+      <a href="#" class="store-btn"><span style="font-size:1.4rem;">▶</span><span><span class="small">Get it on</span><br/><span class="big">Google Play</span></span></a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border:none; padding-top:0;">
+        <span>© 2026 Bindr Inc.</span>
+        <div class="social-icons"><a href="#">ig</a><a href="#">x</a><a href="#">in</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
