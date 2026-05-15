@@ -400,6 +400,18 @@ function initSignupForms() {
   });
 }
 
+// ---------- Header user name ----------
+function initUserHeader() {
+  const user = Bindr.getUser();
+  if (!user) return;
+  const display = user.firstName
+    ? `${user.firstName} ${(user.lastName || '').charAt(0)}.`.trim()
+    : user.name || 'Profile';
+  document.querySelectorAll('[data-user-name]').forEach(el => {
+    el.textContent = display;
+  });
+}
+
 // ---------- Profile stats — pulled from real usage data ----------
 function initProfileStats() {
   const matchCount = Bindr.getMatches().length;
@@ -431,6 +443,7 @@ function initProfilePage() {
 // ---------- Boot all initializers (each is a no-op if its DOM isn't present) ----------
 document.addEventListener('DOMContentLoaded', () => {
   initLoginPage();
+  initUserHeader();
   initSwipePage();
   initMatchesPage();
   initProfilePhotoPrompt();
