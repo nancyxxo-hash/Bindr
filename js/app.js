@@ -432,12 +432,43 @@ function initProfilePage() {
   const user = Bindr.getUser();
   if (!user) return;
 
+  const role = user.role || 'personal';
+
+  // Show the correct role grid, hide the others
+  document.querySelectorAll('[data-role-grid]').forEach(grid => {
+    grid.style.display = grid.getAttribute('data-role-grid') === role ? '' : 'none';
+  });
+
+  // Populate all data-field elements inside the visible grid
   document.querySelectorAll('[data-field]').forEach(el => {
     const key = el.getAttribute('data-field');
     if (user[key] !== undefined && user[key] !== '') {
       el.textContent = user[key];
     }
   });
+
+  // Sidebar: subtitle and meta line vary by role
+  const subtitleEl = document.getElementById('profileSubtitle');
+  const metaEl = document.getElementById('profileMeta');
+  const crumbEl = document.getElementById('profileCrumb');
+  const editBtn = document.getElementById('editProfileBtn');
+
+  if (role === 'corporate') {
+    if (subtitleEl) subtitleEl.textContent = user.industry || '—';
+    if (metaEl) metaEl.textContent = user.yearFounded ? `Est. ${user.yearFounded}` : '';
+    if (crumbEl) crumbEl.textContent = 'Profile · Corporate';
+    if (editBtn) editBtn.href = 'signup-corporate.html';
+  } else if (role === 'student') {
+    if (subtitleEl) subtitleEl.textContent = user.school || '—';
+    if (metaEl) metaEl.textContent = [user.major, user.graduatingYear ? `Class of ${user.graduatingYear}` : ''].filter(Boolean).join(' · ');
+    if (crumbEl) crumbEl.textContent = 'Profile · Student';
+    if (editBtn) editBtn.href = 'signup-student.html';
+  } else {
+    if (subtitleEl) subtitleEl.textContent = user.jobTitle || '—';
+    if (metaEl) metaEl.textContent = user.pronouns || '';
+    if (crumbEl) crumbEl.textContent = 'Profile · Personal';
+    if (editBtn) editBtn.href = 'signup-personal.html';
+  }
 }
 
 // ---------- Boot all initializers (each is a no-op if its DOM isn't present) ----------
