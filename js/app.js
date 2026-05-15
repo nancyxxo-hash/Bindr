@@ -128,7 +128,7 @@ function initLoginPage() {
   });
   signupForm?.addEventListener('submit', (e) => {
     e.preventDefault();
-    window.location.href = 'subscriptions.html';
+    window.location.href = 'account-type.html';
   });
 }
 
