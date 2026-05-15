@@ -231,16 +231,36 @@ function initProfilePhotoPrompt() {
   });
 }
 
-// ---------- Edit-field demo ----------
+// ---------- Edit-field — update DOM and persist to localStorage ----------
 function initEditableFields() {
   document.querySelectorAll('.info-block .edit').forEach(btn => {
     btn.addEventListener('click', () => {
       const block = btn.closest('.info-block');
       const valEl = block.querySelector('.v');
-      const current = valEl.textContent;
+      const fieldKey = valEl.getAttribute('data-field');
+      const current = valEl.textContent === '—' ? '' : valEl.textContent;
       const next = prompt('Edit value:', current);
       if (next !== null && next.trim()) {
         valEl.textContent = next.trim();
+        if (fieldKey) {
+          const user = Bindr.getUser() || {};
+          user[fieldKey] = next.trim();
+          if (fieldKey === 'firstName' || fieldKey === 'lastName') {
+            user.name = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+            if (user.firstName && user.lastName) {
+              user.initials = user.firstName[0].toUpperCase() + user.lastName[0].toUpperCase();
+            }
+          }
+          Bindr.setUser(user);
+          // Refresh any sidebar elements that mirror this field
+          document.querySelectorAll(`[data-field="${fieldKey}"]`).forEach(el => {
+            if (el !== valEl) el.textContent = next.trim();
+          });
+          if (fieldKey === 'firstName' || fieldKey === 'lastName') {
+            document.querySelectorAll('[data-field="name"]').forEach(el => { el.textContent = user.name; });
+            document.querySelectorAll('[data-field="initials"]').forEach(el => { el.textContent = user.initials || user.name.slice(0,2).toUpperCase(); });
+          }
+        }
       }
     });
   });
@@ -333,16 +353,42 @@ function initMapPage() {
   });
 }
 
-// ---------- Form submit demo ----------
+// ---------- Form submit — save all named fields ----------
 function initSignupForms() {
   document.querySelectorAll('form[data-signup-flow]').forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const role = form.getAttribute('data-signup-flow');
-      Bindr.setUser({ email: 'new@bindr.app', role, name: 'You' });
-      // route to home
+      const data = { role };
+      form.querySelectorAll('[name]').forEach(input => {
+        if (input.value.trim()) data[input.name] = input.value.trim();
+      });
+      if (data.firstName || data.lastName) {
+        data.name = `${data.firstName || ''} ${data.lastName || ''}`.trim();
+      } else if (data.companyName) {
+        data.name = data.companyName;
+      }
+      if (data.firstName && data.lastName) {
+        data.initials = data.firstName[0].toUpperCase() + data.lastName[0].toUpperCase();
+      } else if (data.companyName) {
+        data.initials = data.companyName.slice(0, 2).toUpperCase();
+      }
+      Bindr.setUser(data);
       window.location.href = 'home.html';
     });
+  });
+}
+
+// ---------- Profile page — populate from localStorage ----------
+function initProfilePage() {
+  const user = Bindr.getUser();
+  if (!user) return;
+
+  document.querySelectorAll('[data-field]').forEach(el => {
+    const key = el.getAttribute('data-field');
+    if (user[key] !== undefined && user[key] !== '') {
+      el.textContent = user[key];
+    }
   });
 }
 
@@ -352,6 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSwipePage();
   initMatchesPage();
   initProfilePhotoPrompt();
+  initProfilePage();
   initEditableFields();
   initMessagesPage();
   initPricingCards();
