@@ -30,39 +30,39 @@
         <div class="form-grid">
           <div class="field">
             <label>First name<span class="req">*</span></label>
-            <input type="text" required placeholder="Aisha" />
+            <input type="text" name="firstName" required placeholder="First name" />
           </div>
           <div class="field">
             <label>Last name<span class="req">*</span></label>
-            <input type="text" required placeholder="Kapoor" />
+            <input type="text" name="lastName" required placeholder="Last name" />
           </div>
           <div class="field">
             <label>Pronouns</label>
-            <input type="text" placeholder="she/her" />
+            <input type="text" name="pronouns" placeholder="she/her" />
           </div>
           <div class="field">
             <label>Birth year<span class="req">*</span></label>
-            <input type="number" min="1925" max="2010" required placeholder="1995" />
+            <input type="number" name="birthYear" min="1925" max="2010" required placeholder="e.g. 1995" />
           </div>
           <div class="field">
             <label>Job title</label>
-            <input type="text" placeholder="Senior Product Designer" />
+            <input type="text" name="jobTitle" placeholder="e.g. Product Designer" />
           </div>
           <div class="field">
             <label>Education</label>
-            <input type="text" placeholder="B.A., University of Toronto" />
+            <input type="text" name="education" placeholder="e.g. B.A., University of Toronto" />
           </div>
           <div class="field full">
             <label>Desired salary range</label>
-            <input type="text" placeholder="$80,000 – $120,000" />
+            <input type="text" name="salary" placeholder="e.g. $80,000 – $120,000" />
           </div>
           <div class="field full">
             <label>Resume</label>
-            <textarea placeholder="Paste your resume highlights, or upload a PDF below."></textarea>
+            <textarea name="resume" placeholder="Paste your resume highlights, or upload a PDF below."></textarea>
           </div>
           <div class="field full">
             <label>Cover letter</label>
-            <textarea placeholder="Tell potential matches what you're looking for and why."></textarea>
+            <textarea name="coverLetter" placeholder="Tell potential matches what you're looking for and why."></textarea>
           </div>
           <div class="field full">
             <label>Portfolio</label>
@@ -73,12 +73,12 @@
           </div>
           <div class="field full">
             <label>Searching for<span class="req">*</span></label>
-            <input type="text" required placeholder="Senior design role at a Series A or B startup" />
+            <input type="text" name="searchingFor" required placeholder="e.g. Senior design role at a Series A startup" />
             <span class="hint">Field of business or type of opportunity you're looking for.</span>
           </div>
           <div class="field full">
             <label>Contact information</label>
-            <input type="text" placeholder="aisha@example.com  |  +1 (416) 555-0199" />
+            <input type="text" name="contact" placeholder="your@email.com  |  +1 (555) 000-0000" />
           </div>
         </div>
 
@@ -104,3 +104,4 @@
   <script src="js/app.js"></script>
 </body>
 </html>
+
