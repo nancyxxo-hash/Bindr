@@ -30,40 +30,40 @@
         <div class="form-grid">
           <div class="field">
             <label>First name<span class="req">*</span></label>
-            <input type="text" required placeholder="Marco" />
+            <input type="text" name="firstName" required placeholder="First name" />
           </div>
           <div class="field">
             <label>Last name<span class="req">*</span></label>
-            <input type="text" required placeholder="Velez" />
+            <input type="text" name="lastName" required placeholder="Last name" />
           </div>
           <div class="field">
             <label>Pronouns</label>
-            <input type="text" placeholder="he/him" />
+            <input type="text" name="pronouns" placeholder="he/him" />
           </div>
           <div class="field">
             <label>Birth year<span class="req">*</span></label>
-            <input type="number" min="1925" max="2008" required placeholder="2004" />
+            <input type="number" name="birthYear" min="1925" max="2008" required placeholder="e.g. 2004" />
             <span class="hint">Must be 18+ to use Bindr.</span>
           </div>
           <div class="field full">
             <label>Educational institution<span class="req">*</span></label>
-            <input type="text" required placeholder="University of Waterloo" />
+            <input type="text" name="school" required placeholder="e.g. University of Waterloo" />
           </div>
           <div class="field">
             <label>Major / program</label>
-            <input type="text" placeholder="Computer Science" />
+            <input type="text" name="major" placeholder="e.g. Computer Science" />
           </div>
           <div class="field">
             <label>Graduating year<span class="req">*</span></label>
-            <input type="number" min="2026" max="2032" required placeholder="2027" />
+            <input type="number" name="graduatingYear" min="2026" max="2032" required placeholder="e.g. 2027" />
           </div>
           <div class="field full">
             <label>Resume</label>
-            <textarea placeholder="Past experience, projects, awards."></textarea>
+            <textarea name="resume" placeholder="Past experience, projects, awards."></textarea>
           </div>
           <div class="field full">
             <label>Cover letter</label>
-            <textarea placeholder="A short intro about your goals and what you're looking for."></textarea>
+            <textarea name="coverLetter" placeholder="A short intro about your goals and what you're looking for."></textarea>
           </div>
           <div class="field full">
             <label>Portfolio</label>
@@ -74,11 +74,11 @@
           </div>
           <div class="field full">
             <label>Searching for<span class="req">*</span></label>
-            <input type="text" required placeholder="Summer 2026 internship in ML or systems" />
+            <input type="text" name="searchingFor" required placeholder="e.g. Summer 2026 internship in ML or systems" />
           </div>
           <div class="field full">
             <label>Contact information</label>
-            <input type="text" placeholder="marco@uwaterloo.ca" />
+            <input type="text" name="contact" placeholder="your@email.com" />
           </div>
         </div>
 
