@@ -106,7 +106,13 @@ function initLoginPage() {
   loginForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail')?.value || 'demo@bindr.app';
-    Bindr.setUser({ email, role: 'personal', name: email.split('@')[0] });
+    const existing = Bindr.getUser();
+    if (existing) {
+      existing.email = email;
+      Bindr.setUser(existing);
+    } else {
+      Bindr.setUser({ email, role: 'personal', name: email.split('@')[0] });
+    }
     window.location.href = 'home.html';
   });
   signupForm?.addEventListener('submit', (e) => {
