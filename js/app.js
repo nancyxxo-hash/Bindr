@@ -81,6 +81,17 @@ const Bindr = {
   resetDeck() {
     localStorage.removeItem('bindr.deck');
     localStorage.removeItem('bindr.matches');
+  },
+  getActiveConvos() {
+    try { return JSON.parse(localStorage.getItem('bindr.activeConvos') || '[]'); }
+    catch { return []; }
+  },
+  addActiveConvo(threadName) {
+    const list = this.getActiveConvos();
+    if (!list.includes(threadName)) {
+      list.push(threadName);
+      localStorage.setItem('bindr.activeConvos', JSON.stringify(list));
+    }
   }
 };
 
@@ -279,6 +290,8 @@ function initMessagesPage() {
   const sendBtn = document.getElementById('msgSend');
   if (!conv || !input || !sendBtn) return;
 
+  let currentThread = document.querySelector('.msg-conv-name')?.textContent || 'Unknown';
+
   function send() {
     const v = input.value.trim();
     if (!v) return;
@@ -289,13 +302,14 @@ function initMessagesPage() {
     input.value = '';
     conv.scrollTop = conv.scrollHeight;
 
-    // Auto-reply demo
+    // Auto-reply demo — record the exchange as an active conversation
     setTimeout(() => {
       const reply = document.createElement('div');
       reply.className = 'bubble them';
       reply.textContent = randomReply();
       conv.appendChild(reply);
       conv.scrollTop = conv.scrollHeight;
+      Bindr.addActiveConvo(currentThread);
     }, 700);
   }
 
@@ -308,6 +322,7 @@ function initMessagesPage() {
       document.querySelectorAll('.msg-thread-item').forEach(i => i.classList.remove('active'));
       item.classList.add('active');
       const name = item.querySelector('.nm').textContent;
+      currentThread = name;
       document.querySelectorAll('.msg-conv-name').forEach(el => { el.textContent = name; });
     });
   });
@@ -385,6 +400,21 @@ function initSignupForms() {
   });
 }
 
+// ---------- Profile stats — pulled from real usage data ----------
+function initProfileStats() {
+  const matchCount = Bindr.getMatches().length;
+  const activeCount = Bindr.getActiveConvos().length;
+  const replyPct = matchCount > 0 ? Math.round((activeCount / matchCount) * 100) : 0;
+
+  const matchEl = document.querySelector('[data-stat="matches"]');
+  const activeEl = document.querySelector('[data-stat="active"]');
+  const replyEl = document.querySelector('[data-stat="reply"]');
+
+  if (matchEl) matchEl.textContent = matchCount;
+  if (activeEl) activeEl.textContent = activeCount;
+  if (replyEl) replyEl.textContent = replyPct + '%';
+}
+
 // ---------- Profile page — populate from localStorage ----------
 function initProfilePage() {
   const user = Bindr.getUser();
@@ -405,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMatchesPage();
   initProfilePhotoPrompt();
   initProfilePage();
+  initProfileStats();
   initEditableFields();
   initMessagesPage();
   initPricingCards();
