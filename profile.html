@@ -36,26 +36,27 @@
     <main class="binder-page">
       <div class="page-header">
         <div>
-          <span class="crumb">Profile · Personal</span>
+          <span class="crumb" id="profileCrumb">Profile</span>
           <h1>Your profile</h1>
         </div>
-        <a href="signup-personal.html" class="btn btn-secondary">Edit full profile</a>
+        <a id="editProfileBtn" href="signup-personal.html" class="btn btn-secondary">Edit full profile</a>
       </div>
 
       <div class="profile-grid">
         <aside class="profile-side">
           <div class="profile-photo" data-upload-photo data-field="initials">?</div>
           <h2 data-field="name">Your Name</h2>
-          <div class="role" data-field="jobTitle">—</div>
-          <p style="color: var(--muted); font-size: 0.9rem;" data-field="pronouns"></p>
-          <div class="profile-stats">            
+          <div class="role" id="profileSubtitle">—</div>
+          <p style="color: var(--muted); font-size: 0.9rem;" id="profileMeta"></p>
+          <div class="profile-stats">
             <div class="stat"><span class="num" data-stat="matches">0</span><span class="lbl">Matches</span></div>
             <div class="stat"><span class="num" data-stat="active">0</span><span class="lbl">Active</span></div>
             <div class="stat"><span class="num" data-stat="reply">0%</span><span class="lbl">Reply</span></div>
           </div>
         </aside>
 
-        <div class="info-grid">
+        <!-- Personal profile fields -->
+        <div class="info-grid" data-role-grid="personal">
           <div class="info-block">
             <span class="edit">Edit</span>
             <h3>First name</h3>
@@ -90,6 +91,109 @@
             <span class="edit">Edit</span>
             <h3>Desired salary</h3>
             <div class="v" data-field="salary">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Searching for</h3>
+            <div class="v" data-field="searchingFor">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Resume</h3>
+            <div class="v" data-field="resume" style="font-size: 0.95rem; line-height: 1.6;">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Cover letter</h3>
+            <div class="v" data-field="coverLetter" style="font-size: 0.95rem; line-height: 1.6;">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Portfolio</h3>
+            <div class="v" data-field="portfolio">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Contact</h3>
+            <div class="v" data-field="contact">—</div>
+          </div>
+        </div>
+
+        <!-- Corporate profile fields -->
+        <div class="info-grid" data-role-grid="corporate" style="display:none">
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Company name</h3>
+            <div class="v" data-field="companyName">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Year founded</h3>
+            <div class="v" data-field="yearFounded">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Industry</h3>
+            <div class="v" data-field="industry">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Portfolio / website</h3>
+            <div class="v" data-field="portfolioLink">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Available listings</h3>
+            <div class="v" data-field="listings" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-line;">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Company description</h3>
+            <div class="v" data-field="description" style="font-size: 0.95rem; line-height: 1.6;">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Contact</h3>
+            <div class="v" data-field="contact" style="white-space: pre-line;">—</div>
+          </div>
+        </div>
+
+        <!-- Student profile fields -->
+        <div class="info-grid" data-role-grid="student" style="display:none">
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>First name</h3>
+            <div class="v" data-field="firstName">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Last name</h3>
+            <div class="v" data-field="lastName">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Pronouns</h3>
+            <div class="v" data-field="pronouns">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Birth year</h3>
+            <div class="v" data-field="birthYear">—</div>
+          </div>
+          <div class="info-block full">
+            <span class="edit">Edit</span>
+            <h3>Institution</h3>
+            <div class="v" data-field="school">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Major / program</h3>
+            <div class="v" data-field="major">—</div>
+          </div>
+          <div class="info-block">
+            <span class="edit">Edit</span>
+            <h3>Graduating year</h3>
+            <div class="v" data-field="graduatingYear">—</div>
           </div>
           <div class="info-block">
             <span class="edit">Edit</span>
