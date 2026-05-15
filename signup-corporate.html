@@ -30,36 +30,32 @@
         <div class="form-grid">
           <div class="field full">
             <label>Company name<span class="req">*</span></label>
-            <input type="text" required placeholder="Northwood Studio Inc." />
+            <input type="text" name="companyName" required placeholder="Your Company Inc." />
           </div>
           <div class="field">
             <label>Year founded</label>
-            <input type="number" min="1800" max="2026" placeholder="2018" />
+            <input type="number" name="yearFounded" min="1800" max="2026" placeholder="e.g. 2018" />
           </div>
           <div class="field">
             <label>Industry</label>
-            <input type="text" placeholder="Brand &amp; Design" />
+            <input type="text" name="industry" placeholder="e.g. Brand &amp; Design" />
           </div>
           <div class="field full">
             <label>Portfolio link</label>
-            <input type="url" placeholder="https://northwoodstudio.com" />
+            <input type="url" name="portfolioLink" placeholder="https://yourcompany.com" />
           </div>
           <div class="field full">
             <label>Available listings<span class="req">*</span></label>
-            <textarea required placeholder="• Senior Brand Designer (full-time)
-• Copywriter (contract, 6 months)
-• Summer 2026 internship — Design"></textarea>
+            <textarea name="listings" required placeholder="• Senior Designer (full-time)&#10;• Copywriter (contract)&#10;• Summer 2026 internship"></textarea>
             <span class="hint">List active roles, internships, partnerships, or investment criteria.</span>
           </div>
           <div class="field full">
             <label>Company description</label>
-            <textarea placeholder="What you do, who you serve, what makes you different."></textarea>
+            <textarea name="description" placeholder="What you do, who you serve, what makes you different."></textarea>
           </div>
           <div class="field full">
             <label>Contact information</label>
-            <textarea placeholder="hello@northwoodstudio.com
-+1 (212) 555-0146
-228 Park Ave S, New York"></textarea>
+            <textarea name="contact" placeholder="hello@yourcompany.com&#10;+1 (555) 000-0000"></textarea>
           </div>
         </div>
 
