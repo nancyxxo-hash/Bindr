@@ -19,6 +19,10 @@ async function sbFetch(path, options = {}) {
     body: options.body
   });
   const text = await res.text();
+  if (!res.ok) {
+    console.error(`Supabase error [${res.status}] on ${options.method || 'GET'} ${path}:`, text);
+    throw new Error(`Supabase ${res.status}: ${text}`);
+  }
   try { return text ? JSON.parse(text) : []; }
   catch { return []; }
 }
@@ -570,7 +574,8 @@ async function initSignupForms() {
 
       try {
         const profile = await saveProfileToSupabase(data);
-        if (profile) data.supabaseId = profile.id;
+        if (!profile || !profile.id) throw new Error('No profile returned from Supabase');
+        data.supabaseId = profile.id;
         Bindr.setUser(data);
         Bindr.clearPendingEmail();
         window.location.href = 'home.html';
@@ -578,7 +583,7 @@ async function initSignupForms() {
         console.error('Signup error:', err);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        alert('Something went wrong saving your profile. Please try again.');
+        alert(`Signup failed: ${err.message}\n\nCheck the browser console (F12) for details.`);
       }
     });
   });
@@ -599,3 +604,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initMapPage();
   initSignupForms();
 });
+
