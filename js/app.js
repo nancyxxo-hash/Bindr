@@ -333,7 +333,9 @@ async function initMatchesPage() {
     }).join('');
 
     grid.querySelectorAll('.match-card').forEach(c => {
-      c.addEventListener('click', () => { window.location.href = 'messages.html'; });
+      c.addEventListener('click', () => {
+        window.location.href = `messages.html?with=${c.getAttribute('data-id')}`;
+      });
     });
   } catch (err) {
     console.error('Failed to load matches:', err);
@@ -458,57 +460,187 @@ function initEditableFields() {
 }
 
 // ---------- Messages page ----------
-function initMessagesPage() {
-  const conv = document.getElementById('msgConvBody');
-  const input = document.getElementById('msgInput');
-  const sendBtn = document.getElementById('msgSend');
-  if (!conv || !input || !sendBtn) return;
+async function initMessagesPage() {
+  const threadList = document.getElementById('msgThreadList');
+  if (!threadList) return;
 
-  let currentThread = document.querySelector('.msg-conv-name')?.textContent || 'Unknown';
-
-  function send() {
-    const v = input.value.trim();
-    if (!v) return;
-    const div = document.createElement('div');
-    div.className = 'bubble me';
-    div.textContent = v;
-    conv.appendChild(div);
-    input.value = '';
-    conv.scrollTop = conv.scrollHeight;
-
-    setTimeout(() => {
-      const reply = document.createElement('div');
-      reply.className = 'bubble them';
-      reply.textContent = randomReply();
-      conv.appendChild(reply);
-      conv.scrollTop = conv.scrollHeight;
-      Bindr.addActiveConvo(currentThread);
-    }, 700);
+  const user = Bindr.getUser();
+  if (!user || !user.supabaseId) {
+    threadList.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.9rem;">Please log in to view messages.</div>';
+    return;
   }
 
-  sendBtn.addEventListener('click', send);
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
+  const convEmpty  = document.getElementById('msgConvEmpty');
+  const convActive = document.getElementById('msgConvActive');
+  const convHeader = document.getElementById('msgConvHeader');
+  const convBody   = document.getElementById('msgConvBody');
+  const input      = document.getElementById('msgInput');
+  const sendBtn    = document.getElementById('msgSend');
 
-  document.querySelectorAll('.msg-thread-item').forEach(item => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.msg-thread-item').forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      const name = item.querySelector('.nm').textContent;
-      currentThread = name;
-      document.querySelectorAll('.msg-conv-name').forEach(el => { el.textContent = name; });
+  let activeMatchId   = null;
+  let activeMatchName = '';
+  let pollInterval    = null;
+  let lastMsgCount    = 0;
+
+  // ---------- Load thread list ----------
+  async function loadThreads() {
+    let matches = [];
+    try { matches = await fetchMatchedProfiles(user.supabaseId); }
+    catch (err) { console.error('Thread load error:', err); }
+
+    if (!matches.length) {
+      threadList.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.9rem;">No matches yet — start swiping!</div>';
+      return;
+    }
+
+    // Fetch last message for each match in parallel
+    const threads = await Promise.all(matches.map(async m => {
+      let lastMsg = null;
+      try {
+        const msgs = await sbFetch(
+          `messages?or=(and(sender_id.eq.${user.supabaseId},receiver_id.eq.${m.id}),and(sender_id.eq.${m.id},receiver_id.eq.${user.supabaseId}))&order=created_at.desc&limit=1`
+        );
+        lastMsg = msgs[0] || null;
+      } catch {}
+      return { profile: m, lastMsg };
+    }));
+
+    // Sort: conversations with messages first, then by most recent
+    threads.sort((a, b) => {
+      if (!a.lastMsg && !b.lastMsg) return 0;
+      if (!a.lastMsg) return 1;
+      if (!b.lastMsg) return -1;
+      return new Date(b.lastMsg.created_at) - new Date(a.lastMsg.created_at);
     });
-  });
+
+    threadList.innerHTML = threads.map(({ profile, lastMsg }) => {
+      const cd = profileToCardData(profile);
+      const preview = lastMsg
+        ? escapeHtml(lastMsg.content.length > 40 ? lastMsg.content.slice(0, 40) + '…' : lastMsg.content)
+        : 'New match — say hello! 👋';
+      return `
+        <div class="msg-thread-item" data-match-id="${profile.id}" data-initials="${cd.initials}" data-name="${escapeHtml(cd.name)}">
+          <div class="av">${cd.initials}</div>
+          <div class="info">
+            <div class="nm">${escapeHtml(cd.name)}</div>
+            <div class="preview">${preview}</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    threadList.querySelectorAll('.msg-thread-item').forEach(item => {
+      item.addEventListener('click', () => {
+        threadList.querySelectorAll('.msg-thread-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        openConversation(
+          item.getAttribute('data-match-id'),
+          item.getAttribute('data-name'),
+          item.getAttribute('data-initials')
+        );
+      });
+    });
+
+    // Auto-open from URL param (?with=PROFILE_ID)
+    const withId = new URLSearchParams(window.location.search).get('with');
+    if (withId) {
+      const item = threadList.querySelector(`[data-match-id="${withId}"]`);
+      if (item) item.click();
+    }
+  }
+
+  // ---------- Open a conversation ----------
+  function openConversation(matchId, name, initials) {
+    activeMatchId   = matchId;
+    activeMatchName = name;
+    lastMsgCount    = 0;
+
+    convHeader.innerHTML = `
+      <div class="av" style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple-300),var(--purple-600));display:grid;place-items:center;color:white;font-weight:700;flex-shrink:0;">${initials}</div>
+      <div>
+        <div style="font-weight:600;">${escapeHtml(name)}</div>
+        <div style="color:var(--muted);font-size:0.84rem;">Bindr match</div>
+      </div>`;
+
+    convEmpty.style.display  = 'none';
+    convActive.style.display = '';
+    input.disabled           = false;
+    input.placeholder        = `Message ${name}…`;
+    sendBtn.disabled         = false;
+
+    loadMessages();
+
+    if (pollInterval) clearInterval(pollInterval);
+    pollInterval = setInterval(() => loadMessages(true), 3000);
+  }
+
+  // ---------- Load messages ----------
+  async function loadMessages(silent = false) {
+    if (!activeMatchId) return;
+    let msgs = [];
+    try {
+      msgs = await sbFetch(
+        `messages?or=(and(sender_id.eq.${user.supabaseId},receiver_id.eq.${activeMatchId}),and(sender_id.eq.${activeMatchId},receiver_id.eq.${user.supabaseId}))&order=created_at.asc`
+      );
+    } catch (err) {
+      console.error('Message load error:', err);
+      return;
+    }
+
+    if (silent && msgs.length === lastMsgCount) return;
+    lastMsgCount = msgs.length;
+
+    const atBottom = convBody.scrollHeight - convBody.scrollTop <= convBody.clientHeight + 60;
+
+    convBody.innerHTML = msgs.length
+      ? msgs.map(m => `<div class="bubble ${m.sender_id === user.supabaseId ? 'me' : 'them'}">${escapeHtml(m.content)}</div>`).join('')
+      : '<div style="text-align:center;color:var(--muted);padding:40px 20px;font-size:0.9rem;">No messages yet — say hello!</div>';
+
+    if (!silent || atBottom) convBody.scrollTop = convBody.scrollHeight;
+
+    // Update thread preview with latest message
+    if (msgs.length) {
+      const last = msgs[msgs.length - 1];
+      const preview = threadList.querySelector(`[data-match-id="${activeMatchId}"] .preview`);
+      if (preview) preview.textContent = last.content.length > 40 ? last.content.slice(0, 40) + '…' : last.content;
+    }
+  }
+
+  // ---------- Send a message ----------
+  async function sendMessage() {
+    const content = input.value.trim();
+    if (!content || !activeMatchId) return;
+    input.value   = '';
+    sendBtn.disabled = true;
+    try {
+      await sbFetch('messages', {
+        method: 'POST',
+        prefer: 'return=minimal',
+        body: JSON.stringify({ sender_id: user.supabaseId, receiver_id: activeMatchId, content })
+      });
+      Bindr.addActiveConvo(activeMatchId);
+      await loadMessages();
+    } catch (err) {
+      console.error('Send error:', err);
+      input.value = content;
+    } finally {
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  sendBtn?.addEventListener('click', sendMessage);
+  input?.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+  window.addEventListener('beforeunload', () => { if (pollInterval) clearInterval(pollInterval); });
+
+  await loadThreads();
 }
 
-function randomReply() {
-  const replies = [
-    'Sounds good — let me check our calendar.',
-    'Happy to chat! What times work for you?',
-    'Thanks for reaching out. Are you free for a quick intro call?',
-    'Interesting — could you share a portfolio link?',
-    'Looking forward to it. Talk soon.'
-  ];
-  return replies[Math.floor(Math.random() * replies.length)];
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 // ---------- Pricing cards ----------
