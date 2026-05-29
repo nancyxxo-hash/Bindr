@@ -42,75 +42,36 @@
       </div>
 
       <div class="msg-layout">
+
         <!-- Thread list -->
         <div class="msg-list">
           <div class="msg-list-header">
-            <strong>You</strong>
-            <span class="msg-pencil" title="New message">✎</span>
+            <strong data-user-name>Messages</strong>
           </div>
-
-          <div class="msg-thread-item active">
-            <div class="av">NS</div>
-            <div class="info">
-              <div class="nm">Northwood Studio</div>
-              <div class="preview">Sounds great — Tuesday 2pm works.</div>
-            </div>
-          </div>
-          <div class="msg-thread-item">
-            <div class="av">MV</div>
-            <div class="info">
-              <div class="nm">Marco Velez</div>
-              <div class="preview">Thank you! I'll send my portfolio over.</div>
-            </div>
-          </div>
-          <div class="msg-thread-item">
-            <div class="av">LM</div>
-            <div class="info">
-              <div class="nm">Lumina Capital</div>
-              <div class="preview">Are you raising right now?</div>
-            </div>
-          </div>
-          <div class="msg-thread-item">
-            <div class="av">JT</div>
-            <div class="info">
-              <div class="nm">Jules Thompson</div>
-              <div class="preview">Loved your portfolio. Quick chat?</div>
-            </div>
-          </div>
-          <div class="msg-thread-item">
-            <div class="av">RH</div>
-            <div class="info">
-              <div class="nm">Rivera Health</div>
-              <div class="preview">Welcome! Ready to talk roles?</div>
-            </div>
+          <div id="msgThreadList">
+            <div class="msg-loading">Loading conversations…</div>
           </div>
         </div>
 
-        <!-- Conversation -->
-        <div class="msg-conv">
-          <div class="msg-conv-header">
-            <div class="av" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--purple-300), var(--purple-600)); display: grid; place-items: center; color: white; font-weight: 700;">NS</div>
-            <div>
-              <div class="msg-conv-name" style="font-weight: 600;">Northwood Studio</div>
-              <div style="color: var(--muted); font-size: 0.84rem;">Active 2h ago</div>
-            </div>
+        <!-- Empty state: no conversation selected -->
+        <div class="msg-conv" id="msgConvEmpty">
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--muted); text-align:center; padding: 40px;">
+            <div style="font-size: 3rem; margin-bottom: 16px;">💬</div>
+            <h3 style="margin-bottom: 8px; color: var(--text);">Select a conversation</h3>
+            <p style="font-size: 0.9rem;">Choose a match from the left to start messaging.</p>
           </div>
+        </div>
 
-          <div class="msg-conv-body" id="msgConvBody">
-            <div class="bubble them">Hey Aisha! We saw your profile and loved your Wealthsimple work.</div>
-            <div class="bubble them">Are you open to chatting about a senior role we're hiring for?</div>
-            <div class="bubble me">Hi! Thanks so much. Yes — happy to chat.</div>
-            <div class="bubble me">Could you tell me a bit about the team?</div>
-            <div class="bubble them">Of course. We're 14 people, mostly in NYC, design-led, and just closed Series A. Want to set up a call this week?</div>
-            <div class="bubble me">Tuesday 2pm works for me.</div>
-            <div class="bubble them">Sounds great — Tuesday 2pm works. I'll send a calendar invite.</div>
-          </div>
-
+        <!-- Active conversation (hidden until a thread is selected) -->
+        <div class="msg-conv" id="msgConvActive" style="display:none;">
+          <div class="msg-conv-header" id="msgConvHeader"></div>
+          <div class="msg-conv-body" id="msgConvBody"></div>
           <div class="msg-input-row">
-            <input id="msgInput" type="text" placeholder="Write a message…" />
-            <button id="msgSend">Send</button>
+            <input id="msgInput" type="text" placeholder="Select a conversation first…" disabled />
+            <button id="msgSend" disabled>Send</button>
           </div>
         </div>
+
       </div>
     </main>
   </div>
