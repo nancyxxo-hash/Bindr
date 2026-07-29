@@ -753,6 +753,18 @@ function applyFilters(profiles, filters) {
       if (!filters.role.includes(p.role)) return false;
     }
 
+    // Industry — match against profile_data.industry (corporate) or any text for personal/student
+    if (filters.industry && filters.industry.length) {
+      const pdIndustry = (pd.industry || '').toLowerCase();
+      const haystack = [pd.industry, pd.jobTitle, pd.searchingFor, pd.description, pd.listings, pd.major]
+        .filter(Boolean).join(' ').toLowerCase();
+      const matched = filters.industry.some(ind => {
+        const indLower = ind.toLowerCase();
+        return pdIndustry.includes(indLower) || haystack.includes(indLower);
+      });
+      if (!matched) return false;
+    }
+
     // Location text search
     if (filters.locationText) {
       const q = filters.locationText.toLowerCase();
@@ -819,7 +831,7 @@ function initFilterPanel() {
   const clearBtn  = document.getElementById('btnClearFilters');
   const saveBtn   = document.getElementById('btnSaveFilter');
 
-  const CHECKBOX_GROUPS = ['role', 'empType', 'expLevel', 'compSize', 'compAttr', 'availability', 'intent', 'matchPref'];
+  const CHECKBOX_GROUPS = ['role', 'industry', 'empType', 'expLevel', 'compSize', 'compAttr', 'availability', 'intent', 'matchPref'];
 
   function openPanel() {
     panel.classList.add('open');
@@ -843,6 +855,32 @@ function initFilterPanel() {
     title.addEventListener('click', () => {
       const isCollapsed = group.classList.toggle('collapsed');
       title.classList.toggle('collapsed', isCollapsed);
+    });
+  });
+
+  // Industry search — hide non-matching labels and their group headers
+  const industrySearch = document.getElementById('filterIndustrySearch');
+  industrySearch?.addEventListener('input', () => {
+    const q = industrySearch.value.trim().toLowerCase();
+    const scroll = document.getElementById('filterIndustryScroll');
+    if (!scroll) return;
+    const headers = scroll.querySelectorAll('.filter-industry-header');
+    const labels  = scroll.querySelectorAll('label.filter-sub');
+
+    labels.forEach(lbl => {
+      const text = lbl.textContent.toLowerCase();
+      lbl.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+    });
+
+    // Hide group headers that have no visible labels following them
+    headers.forEach(hdr => {
+      let sib = hdr.nextElementSibling;
+      let anyVisible = false;
+      while (sib && !sib.classList.contains('filter-industry-header')) {
+        if (!sib.classList.contains('hidden')) anyVisible = true;
+        sib = sib.nextElementSibling;
+      }
+      hdr.classList.toggle('hidden', !anyVisible && q.length > 0);
     });
   });
 
