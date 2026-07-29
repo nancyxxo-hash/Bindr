@@ -1492,6 +1492,29 @@ p { color: #2d2440; }
   font-style: italic;
 }
 
+.filter-industry-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px 10px;
+  background: white;
+}
+.filter-industry-header {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--purple-600);
+  font-weight: 700;
+  padding: 10px 0 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.filter-industry-header:first-child { border-top: none; margin-top: 0; padding-top: 4px; }
+.filter-sub { padding-left: 6px; }
+.filter-industry-scroll label.hidden { display: none; }
+
 .filter-empty-saved { font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
 .saved-filters-list { display: flex; flex-direction: column; gap: 6px; }
