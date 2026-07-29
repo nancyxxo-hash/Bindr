@@ -118,7 +118,17 @@ const Bindr = {
   },
   getPendingEmail() { return localStorage.getItem('bindr.pendingEmail') || ''; },
   setPendingEmail(email) { localStorage.setItem('bindr.pendingEmail', email); },
-  clearPendingEmail() { localStorage.removeItem('bindr.pendingEmail'); }
+  clearPendingEmail() { localStorage.removeItem('bindr.pendingEmail'); },
+  getFilters() {
+    try { return JSON.parse(localStorage.getItem('bindr.filters') || 'null') || {}; }
+    catch { return {}; }
+  },
+  setFilters(f) { localStorage.setItem('bindr.filters', JSON.stringify(f)); },
+  getSavedFilters() {
+    try { return JSON.parse(localStorage.getItem('bindr.savedFilters') || '[]'); }
+    catch { return []; }
+  },
+  setSavedFilters(arr) { localStorage.setItem('bindr.savedFilters', JSON.stringify(arr)); }
 };
 
 // ---------- Build swipe card display data from a Supabase profile row ----------
@@ -229,11 +239,21 @@ async function initSwipePage() {
   cardEl.querySelector('.chips').innerHTML = '';
 
   let deck = [];
-  try {
-    deck = await fetchSwipeableProfiles(user.supabaseId);
-  } catch (err) {
-    console.error('Failed to load profiles:', err);
+  async function loadDeck() {
+    try {
+      let profiles = await fetchSwipeableProfiles(user.supabaseId);
+      deck = applyFilters(profiles, Bindr.getFilters());
+    } catch (err) {
+      console.error('Failed to load profiles:', err);
+    }
   }
+  await loadDeck();
+
+  document.addEventListener('bindr:filtersChanged', async () => {
+    await loadDeck();
+    if (empty) empty.style.display = 'none';
+    render();
+  });
 
   function render() {
     if (!deck.length) {
@@ -286,7 +306,7 @@ async function initSwipePage() {
   document.getElementById('btnMatch')?.addEventListener('click', () => swipe('right'));
   document.getElementById('btnReset')?.addEventListener('click', async () => {
     try {
-      deck = await fetchSwipeableProfiles(user.supabaseId);
+      await loadDeck();
       empty.style.display = 'none';
       render();
     } catch (err) { console.error(err); }
@@ -721,6 +741,232 @@ async function initSignupForms() {
   });
 }
 
+// ---------- Filter logic ----------
+function applyFilters(profiles, filters) {
+  if (!filters || !Object.keys(filters).length) return profiles;
+
+  return profiles.filter(p => {
+    const pd = p.profile_data || {};
+
+    // Role / profile type
+    if (filters.role && filters.role.length) {
+      if (!filters.role.includes(p.role)) return false;
+    }
+
+    // Location text search
+    if (filters.locationText) {
+      const q = filters.locationText.toLowerCase();
+      const hay = [pd.contact, pd.searchingFor, pd.description, pd.jobTitle, pd.school, pd.city, pd.location]
+        .filter(Boolean).join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+
+    // Remote only
+    if (filters.remoteOnly) {
+      const hay = [pd.contact, pd.searchingFor, pd.description, pd.listings]
+        .filter(Boolean).join(' ').toLowerCase();
+      if (!hay.includes('remote')) return false;
+    }
+
+    // Salary min/max
+    if ((filters.salaryMin || filters.salaryMax) && pd.salary) {
+      const num = parseInt(String(pd.salary).replace(/[^\d]/g, ''), 10);
+      if (!isNaN(num)) {
+        if (filters.salaryMin && num < filters.salaryMin) return false;
+        if (filters.salaryMax && num > filters.salaryMax) return false;
+      }
+    }
+
+    // Skills / keyword match (all terms must appear somewhere in the profile)
+    if (filters.skillsKeywords) {
+      const kws = filters.skillsKeywords.split(',').map(k => k.trim().toLowerCase()).filter(Boolean);
+      if (kws.length) {
+        const hay = [pd.searchingFor, pd.description, pd.jobTitle, pd.major, pd.listings, pd.skills, pd.coverLetter]
+          .filter(Boolean).join(' ').toLowerCase();
+        if (!kws.every(kw => hay.includes(kw))) return false;
+      }
+    }
+
+    // Employment type — soft match against free-text fields
+    if (filters.empType && filters.empType.length) {
+      const hay = [pd.searchingFor, pd.listings, pd.description]
+        .filter(Boolean).join(' ').toLowerCase();
+      const aliasMap = { 'full-time': ['full time', 'full-time', 'fulltime'], 'part-time': ['part time', 'part-time', 'parttime'], 'contract': ['contract'], 'internship': ['intern', 'co-op', 'coop'], 'freelance': ['freelance', 'freelancer'], 'seasonal': ['seasonal'] };
+      const matched = filters.empType.some(et => (aliasMap[et] || [et]).some(alias => hay.includes(alias)));
+      if (!matched && hay.length > 0) return false;
+    }
+
+    // Matching preferences (resume / portfolio / cover letter)
+    if (filters.matchPref && filters.matchPref.length) {
+      if (filters.matchPref.includes('with-resume') && !pd.resume) return false;
+      if (filters.matchPref.includes('with-cover-letter') && !pd.coverLetter) return false;
+      if (filters.matchPref.includes('with-portfolio') && !pd.portfolioLink) return false;
+    }
+
+    return true;
+  });
+}
+
+// ---------- Filter panel UI ----------
+function initFilterPanel() {
+  const panel = document.getElementById('filterPanel');
+  if (!panel) return;
+
+  const overlay  = document.getElementById('filterOverlay');
+  const filterBtn = document.getElementById('btnFilters');
+  const closeBtn  = document.getElementById('filterClose');
+  const applyBtn  = document.getElementById('btnApplyFilters');
+  const clearBtn  = document.getElementById('btnClearFilters');
+  const saveBtn   = document.getElementById('btnSaveFilter');
+
+  const CHECKBOX_GROUPS = ['role', 'empType', 'expLevel', 'compSize', 'compAttr', 'availability', 'intent', 'matchPref'];
+
+  function openPanel() {
+    panel.classList.add('open');
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePanel() {
+    panel.classList.remove('open');
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  filterBtn?.addEventListener('click', openPanel);
+  closeBtn?.addEventListener('click', closePanel);
+  overlay?.addEventListener('click', closePanel);
+
+  // Collapsible section headers
+  document.querySelectorAll('#filterPanel .filter-section-title[data-toggle]').forEach(title => {
+    const group = document.getElementById(title.getAttribute('data-toggle'));
+    if (!group) return;
+    title.addEventListener('click', () => {
+      const isCollapsed = group.classList.toggle('collapsed');
+      title.classList.toggle('collapsed', isCollapsed);
+    });
+  });
+
+  function readFiltersFromPanel() {
+    const f = {};
+    CHECKBOX_GROUPS.forEach(name => {
+      const checked = [...panel.querySelectorAll(`[name="${name}"]:checked`)].map(cb => cb.value);
+      if (checked.length) f[name] = checked;
+    });
+    if (panel.querySelector('[name="remoteOnly"]:checked')) f.remoteOnly = true;
+    if (panel.querySelector('[name="equityOk"]:checked')) f.equityOk = true;
+    const loc = document.getElementById('filterLocationInput')?.value.trim();
+    if (loc) f.locationText = loc;
+    const skills = document.getElementById('filterSkillsInput')?.value.trim();
+    if (skills) f.skillsKeywords = skills;
+    const salMin = document.getElementById('filterSalMin')?.value.trim();
+    if (salMin) f.salaryMin = parseInt(salMin, 10);
+    const salMax = document.getElementById('filterSalMax')?.value.trim();
+    if (salMax) f.salaryMax = parseInt(salMax, 10);
+    return f;
+  }
+
+  function loadFiltersIntoPanel(f) {
+    f = f || {};
+    CHECKBOX_GROUPS.forEach(name => {
+      panel.querySelectorAll(`[name="${name}"]`).forEach(cb => {
+        cb.checked = (f[name] || []).includes(cb.value);
+      });
+    });
+    const remCb = panel.querySelector('[name="remoteOnly"]');
+    if (remCb) remCb.checked = !!f.remoteOnly;
+    const eqCb = panel.querySelector('[name="equityOk"]');
+    if (eqCb) eqCb.checked = !!f.equityOk;
+    const locEl = document.getElementById('filterLocationInput');
+    if (locEl) locEl.value = f.locationText || '';
+    const skillEl = document.getElementById('filterSkillsInput');
+    if (skillEl) skillEl.value = f.skillsKeywords || '';
+    const salMinEl = document.getElementById('filterSalMin');
+    if (salMinEl) salMinEl.value = f.salaryMin || '';
+    const salMaxEl = document.getElementById('filterSalMax');
+    if (salMaxEl) salMaxEl.value = f.salaryMax || '';
+  }
+
+  function countActiveFilters(f) {
+    if (!f) return 0;
+    let n = 0;
+    CHECKBOX_GROUPS.forEach(k => { if (f[k] && f[k].length) n += f[k].length; });
+    if (f.remoteOnly) n++;
+    if (f.equityOk) n++;
+    if (f.locationText) n++;
+    if (f.skillsKeywords) n++;
+    if (f.salaryMin) n++;
+    if (f.salaryMax) n++;
+    return n;
+  }
+
+  function updateBadge(f) {
+    const badge = document.getElementById('filterBadge');
+    if (!badge) return;
+    const n = countActiveFilters(f);
+    badge.textContent = n;
+    badge.style.display = n > 0 ? 'inline-grid' : 'none';
+  }
+
+  function renderSavedFilters() {
+    const list = document.getElementById('savedFiltersList');
+    if (!list) return;
+    const saved = Bindr.getSavedFilters();
+    if (!saved.length) {
+      list.innerHTML = '<div class="filter-empty-saved">No saved filters yet.</div>';
+      return;
+    }
+    list.innerHTML = saved.map((s, i) => `
+      <div class="saved-filter-chip">
+        <span class="sfc-name" data-idx="${i}">${escapeHtml(s.name)}</span>
+        <span class="sfc-del" data-idx="${i}" title="Delete">✕</span>
+      </div>`).join('');
+
+    list.querySelectorAll('.sfc-name').forEach(el => {
+      el.addEventListener('click', () => {
+        const sf = Bindr.getSavedFilters()[parseInt(el.getAttribute('data-idx'))];
+        if (sf) loadFiltersIntoPanel(sf.filters);
+      });
+    });
+    list.querySelectorAll('.sfc-del').forEach(el => {
+      el.addEventListener('click', () => {
+        const arr = Bindr.getSavedFilters();
+        arr.splice(parseInt(el.getAttribute('data-idx')), 1);
+        Bindr.setSavedFilters(arr);
+        renderSavedFilters();
+      });
+    });
+  }
+
+  saveBtn?.addEventListener('click', () => {
+    const nameInput = document.getElementById('saveFilterName');
+    const name = nameInput?.value.trim();
+    if (!name) { nameInput?.focus(); return; }
+    const arr = Bindr.getSavedFilters();
+    arr.push({ name, filters: readFiltersFromPanel() });
+    Bindr.setSavedFilters(arr);
+    if (nameInput) nameInput.value = '';
+    renderSavedFilters();
+  });
+
+  applyBtn?.addEventListener('click', () => {
+    const f = readFiltersFromPanel();
+    Bindr.setFilters(f);
+    updateBadge(f);
+    closePanel();
+    document.dispatchEvent(new CustomEvent('bindr:filtersChanged'));
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    loadFiltersIntoPanel({});
+  });
+
+  // Init from saved state
+  const existing = Bindr.getFilters();
+  loadFiltersIntoPanel(existing);
+  updateBadge(existing);
+  renderSavedFilters();
+}
+
 // ---------- Boot ----------
 document.addEventListener('DOMContentLoaded', () => {
   initLoginPage();
@@ -735,5 +981,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initPricingCards();
   initMapPage();
   initSignupForms();
+  initFilterPanel();
 });
-
