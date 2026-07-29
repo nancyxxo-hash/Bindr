@@ -41,7 +41,12 @@
           <span class="crumb">Home</span>
           <h1>Discover your match</h1>
         </div>
-        <button id="btnReset" class="btn btn-secondary">Reset Deck</button>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button id="btnFilters" class="btn btn-secondary">
+            Filters <span class="filter-active-badge" id="filterBadge" style="display:none;">0</span>
+          </button>
+          <button id="btnReset" class="btn btn-secondary">Reset Deck</button>
+        </div>
       </div>
 
       <div class="match-banner" id="matchBanner">
@@ -98,6 +103,179 @@
       </div>
     </div>
   </footer>
+
+  <!-- Filter overlay backdrop -->
+  <div class="filter-overlay" id="filterOverlay"></div>
+
+  <!-- Filter slide-out panel -->
+  <div class="filter-panel" id="filterPanel">
+    <div class="filter-header">
+      <h3>Filter Profiles</h3>
+      <button class="filter-close" id="filterClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="filter-body">
+
+      <!-- Profile Type -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterRoleList">Profile Type</div>
+        <div class="filter-group" id="filterRoleList">
+          <label class="filter-check"><input type="checkbox" name="role" value="personal"> <span>Personal / Job Seeker</span></label>
+          <label class="filter-check"><input type="checkbox" name="role" value="student"> <span>Student</span></label>
+          <label class="filter-check"><input type="checkbox" name="role" value="corporate"> <span>Corporate / Employer</span></label>
+        </div>
+      </div>
+
+      <!-- Industry -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterIndustryList">Industry</div>
+        <div class="filter-group" id="filterIndustryList">
+          <p class="filter-coming-soon">Industry list coming soon — your team is finalizing it.</p>
+        </div>
+      </div>
+
+      <!-- Job Function / Title -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterJobList">Job Function / Title</div>
+        <div class="filter-group" id="filterJobList">
+          <p class="filter-coming-soon">Job function list coming soon — your team is finalizing it.</p>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterLocationList">Location</div>
+        <div class="filter-group" id="filterLocationList">
+          <div class="filter-field">
+            <input type="text" id="filterLocationInput" class="filter-input" placeholder="City, province, or remote…">
+          </div>
+          <label class="filter-check"><input type="checkbox" name="remoteOnly" value="1"> <span>Remote only</span></label>
+        </div>
+      </div>
+
+      <!-- Compensation -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterCompList">Compensation</div>
+        <div class="filter-group" id="filterCompList">
+          <div class="filter-range-row">
+            <div class="filter-field-mini">
+              <label>Min ($/yr)</label>
+              <input type="number" id="filterSalMin" class="filter-input" placeholder="0">
+            </div>
+            <span class="filter-range-sep">—</span>
+            <div class="filter-field-mini">
+              <label>Max ($/yr)</label>
+              <input type="number" id="filterSalMax" class="filter-input" placeholder="Any">
+            </div>
+          </div>
+          <label class="filter-check"><input type="checkbox" name="equityOk" value="1"> <span>Open to equity</span></label>
+        </div>
+      </div>
+
+      <!-- Employment Type -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterEmpList">Employment Type</div>
+        <div class="filter-group" id="filterEmpList">
+          <label class="filter-check"><input type="checkbox" name="empType" value="full-time"> <span>Full-time</span></label>
+          <label class="filter-check"><input type="checkbox" name="empType" value="part-time"> <span>Part-time</span></label>
+          <label class="filter-check"><input type="checkbox" name="empType" value="contract"> <span>Contract</span></label>
+          <label class="filter-check"><input type="checkbox" name="empType" value="internship"> <span>Internship / Co-op</span></label>
+          <label class="filter-check"><input type="checkbox" name="empType" value="freelance"> <span>Freelance</span></label>
+          <label class="filter-check"><input type="checkbox" name="empType" value="seasonal"> <span>Seasonal</span></label>
+        </div>
+      </div>
+
+      <!-- Experience Level -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterExpList">Experience Level</div>
+        <div class="filter-group" id="filterExpList">
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="entry"> <span>Entry-level (0–2 yrs)</span></label>
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="mid"> <span>Mid-level (3–5 yrs)</span></label>
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="senior"> <span>Senior (6–9 yrs)</span></label>
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="lead"> <span>Lead / Principal (10+ yrs)</span></label>
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="executive"> <span>Executive / C-Suite</span></label>
+          <label class="filter-check"><input type="checkbox" name="expLevel" value="student-level"> <span>Student / No experience</span></label>
+        </div>
+      </div>
+
+      <!-- Company Attributes -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterCompanyList">Company Attributes</div>
+        <div class="filter-group" id="filterCompanyList">
+          <label class="filter-check"><input type="checkbox" name="compSize" value="startup"> <span>Startup (1–50 employees)</span></label>
+          <label class="filter-check"><input type="checkbox" name="compSize" value="small"> <span>Small (51–200)</span></label>
+          <label class="filter-check"><input type="checkbox" name="compSize" value="medium"> <span>Medium (201–1,000)</span></label>
+          <label class="filter-check"><input type="checkbox" name="compSize" value="large"> <span>Large (1,000+)</span></label>
+          <label class="filter-check"><input type="checkbox" name="compAttr" value="dei"> <span>DEI commitment</span></label>
+          <label class="filter-check"><input type="checkbox" name="compAttr" value="b-corp"> <span>B-Corp / Social enterprise</span></label>
+          <label class="filter-check"><input type="checkbox" name="compAttr" value="indigenous"> <span>Indigenous-owned</span></label>
+          <label class="filter-check"><input type="checkbox" name="compAttr" value="women-led"> <span>Women-led</span></label>
+        </div>
+      </div>
+
+      <!-- Skills & Keywords -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterSkillList">Skills &amp; Keywords</div>
+        <div class="filter-group" id="filterSkillList">
+          <div class="filter-field">
+            <input type="text" id="filterSkillsInput" class="filter-input" placeholder="e.g. React, SQL, project management">
+            <div class="filter-hint">Comma-separated — profiles must match all terms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterAvailList">Availability</div>
+        <div class="filter-group" id="filterAvailList">
+          <label class="filter-check"><input type="checkbox" name="availability" value="immediate"> <span>Immediately available</span></label>
+          <label class="filter-check"><input type="checkbox" name="availability" value="2-weeks"> <span>Available in 2 weeks</span></label>
+          <label class="filter-check"><input type="checkbox" name="availability" value="1-month"> <span>Available in 1 month</span></label>
+          <label class="filter-check"><input type="checkbox" name="availability" value="3-months"> <span>Available in 3 months</span></label>
+          <label class="filter-check"><input type="checkbox" name="availability" value="open"> <span>Open to opportunities</span></label>
+        </div>
+      </div>
+
+      <!-- Connection Intent -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterIntentList">Connection Intent</div>
+        <div class="filter-group" id="filterIntentList">
+          <label class="filter-check"><input type="checkbox" name="intent" value="hiring"> <span>Actively hiring</span></label>
+          <label class="filter-check"><input type="checkbox" name="intent" value="job-seeking"> <span>Actively job seeking</span></label>
+          <label class="filter-check"><input type="checkbox" name="intent" value="networking"> <span>Professional networking</span></label>
+          <label class="filter-check"><input type="checkbox" name="intent" value="mentorship"> <span>Mentorship</span></label>
+          <label class="filter-check"><input type="checkbox" name="intent" value="collaborating"> <span>Collaborating / partnerships</span></label>
+          <label class="filter-check"><input type="checkbox" name="intent" value="exploring"> <span>Just exploring</span></label>
+        </div>
+      </div>
+
+      <!-- Matching Preferences -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="filterPrefList">Matching Preferences</div>
+        <div class="filter-group" id="filterPrefList">
+          <label class="filter-check"><input type="checkbox" name="matchPref" value="with-resume"> <span>Has resume attached</span></label>
+          <label class="filter-check"><input type="checkbox" name="matchPref" value="with-portfolio"> <span>Has portfolio / website</span></label>
+          <label class="filter-check"><input type="checkbox" name="matchPref" value="with-cover-letter"> <span>Has cover letter</span></label>
+        </div>
+      </div>
+
+      <!-- Saved Filters -->
+      <div class="filter-section filter-section-saved">
+        <div class="filter-section-title" style="cursor:default;">Saved Filters</div>
+        <div class="filter-group" style="padding-top:0;">
+          <div id="savedFiltersList"><div class="filter-empty-saved">No saved filters yet.</div></div>
+          <input type="text" id="saveFilterName" class="filter-input" placeholder="Preset name…" style="margin-top:6px;">
+          <button class="btn btn-secondary" id="btnSaveFilter" style="width:100%;margin-top:8px;font-size:0.87rem;padding:8px;">Save Current Filters</button>
+        </div>
+      </div>
+
+    </div><!-- /.filter-body -->
+
+    <div class="filter-footer">
+      <button class="btn btn-ghost" id="btnClearFilters">Clear All</button>
+      <button class="btn btn-primary" id="btnApplyFilters">Apply Filters</button>
+    </div>
+  </div><!-- /.filter-panel -->
 
   <script src="js/app.js"></script>
 </body>
