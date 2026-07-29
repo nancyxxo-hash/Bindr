@@ -130,7 +130,288 @@
       <div class="filter-section">
         <div class="filter-section-title" data-toggle="filterIndustryList">Industry</div>
         <div class="filter-group" id="filterIndustryList">
-          <p class="filter-coming-soon">Industry list coming soon — your team is finalizing it.</p>
+          <div class="filter-field">
+            <input type="text" id="filterIndustrySearch" class="filter-input" placeholder="Search industries…">
+          </div>
+          <div class="filter-industry-scroll" id="filterIndustryScroll">
+
+            <div class="filter-industry-header">Technology</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Software Development & Engineering"><span>Software Development &amp; Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Artificial Intelligence & Machine Learning"><span>Artificial Intelligence &amp; Machine Learning</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cybersecurity"><span>Cybersecurity</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cloud Computing & Infrastructure"><span>Cloud Computing &amp; Infrastructure</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Data & Analytics"><span>Data &amp; Analytics</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Hardware & Semiconductors"><span>Hardware &amp; Semiconductors</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Gaming & Interactive Media"><span>Gaming &amp; Interactive Media</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Blockchain & Web3"><span>Blockchain &amp; Web3</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="IT Services & Consulting"><span>IT Services &amp; Consulting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Telecommunications"><span>Telecommunications</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Consumer Electronics"><span>Consumer Electronics</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="EdTech"><span>EdTech</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="HealthTech"><span>HealthTech</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="FinTech"><span>FinTech</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="LegalTech"><span>LegalTech</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="PropTech"><span>PropTech (Real Estate Technology)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="AgTech"><span>AgTech (Agriculture Technology)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="CleanTech / GreenTech"><span>CleanTech / GreenTech</span></label>
+
+            <div class="filter-industry-header">Finance &amp; Banking</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Retail & Commercial Banking"><span>Retail &amp; Commercial Banking</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Investment Banking"><span>Investment Banking</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Wealth & Asset Management"><span>Wealth &amp; Asset Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Private Equity"><span>Private Equity</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Venture Capital"><span>Venture Capital</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Hedge Funds"><span>Hedge Funds</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Insurance"><span>Insurance</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Accounting & Auditing"><span>Accounting &amp; Auditing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Tax & Compliance"><span>Tax &amp; Compliance</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Financial Planning & Advisory"><span>Financial Planning &amp; Advisory</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Mortgage & Lending"><span>Mortgage &amp; Lending</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Payments & Transactions"><span>Payments &amp; Transactions</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cryptocurrency & Digital Assets"><span>Cryptocurrency &amp; Digital Assets</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Actuarial Services"><span>Actuarial Services</span></label>
+
+            <div class="filter-industry-header">Healthcare &amp; Life Sciences</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Hospitals & Health Systems"><span>Hospitals &amp; Health Systems</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Primary & Family Care"><span>Primary &amp; Family Care</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Mental Health & Counselling"><span>Mental Health &amp; Counselling</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Dentistry"><span>Dentistry</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Pharmacy & Pharmaceuticals"><span>Pharmacy &amp; Pharmaceuticals</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Biotechnology"><span>Biotechnology</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Medical Devices & Equipment"><span>Medical Devices &amp; Equipment</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Clinical Research & Trials"><span>Clinical Research &amp; Trials</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Public Health"><span>Public Health</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Nursing & Allied Health"><span>Nursing &amp; Allied Health</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Chiropractic & Physical Therapy"><span>Chiropractic &amp; Physical Therapy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Optometry"><span>Optometry</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Veterinary Medicine"><span>Veterinary Medicine</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Health Insurance & Benefits"><span>Health Insurance &amp; Benefits</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Telemedicine"><span>Telemedicine</span></label>
+
+            <div class="filter-industry-header">Creative &amp; Media</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Advertising & Brand Strategy"><span>Advertising &amp; Brand Strategy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Graphic & Visual Design"><span>Graphic &amp; Visual Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="UX / UI Design"><span>UX / UI Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Motion Graphics & Animation"><span>Motion Graphics &amp; Animation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Film & Video Production"><span>Film &amp; Video Production</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Photography"><span>Photography</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Music & Audio Production"><span>Music &amp; Audio Production</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Journalism & Editorial"><span>Journalism &amp; Editorial</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Writing"><span>Writing (fiction, non-fiction, poetry, playwriting)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Publishing & Content Creation"><span>Publishing &amp; Content Creation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Public Relations & Communications"><span>Public Relations &amp; Communications</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Podcast & Streaming Media"><span>Podcast &amp; Streaming Media</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Fashion & Apparel Design"><span>Fashion &amp; Apparel Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Interior Design"><span>Interior Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Architecture"><span>Architecture</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Fine Arts & Illustration"><span>Fine Arts &amp; Illustration</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Game Design"><span>Game Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Copywriting & Content Strategy"><span>Copywriting &amp; Content Strategy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Choreography"><span>Choreography</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Stunt Design"><span>Stunt Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Set Design"><span>Set Design</span></label>
+
+            <div class="filter-industry-header">Marketing &amp; Sales</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Digital Marketing"><span>Digital Marketing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="SEO & SEM"><span>SEO &amp; SEM</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Social Media Marketing"><span>Social Media Marketing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Email Marketing"><span>Email Marketing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Performance Marketing & Paid Media"><span>Performance Marketing &amp; Paid Media</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Brand Management"><span>Brand Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Product Marketing"><span>Product Marketing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Growth Marketing"><span>Growth Marketing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Event Marketing & Sponsorship"><span>Event Marketing &amp; Sponsorship</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Market Research & Consumer Insights"><span>Market Research &amp; Consumer Insights</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sales (B2B)"><span>Sales (B2B)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sales (B2C)"><span>Sales (B2C)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Account Management"><span>Account Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Business Development"><span>Business Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Partnerships & Alliances"><span>Partnerships &amp; Alliances</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Customer Success"><span>Customer Success</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Retail & Merchandising"><span>Retail &amp; Merchandising</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Influencer Marketing"><span>Influencer Marketing</span></label>
+
+            <div class="filter-industry-header">Education &amp; Training</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Early Childhood Education"><span>Early Childhood Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Primary & Secondary Education (K-12)"><span>Primary &amp; Secondary Education (K–12)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Post-Secondary & Higher Education"><span>Post-Secondary &amp; Higher Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Teaching Assistants"><span>Teaching Assistants</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Vocational & Trade Training"><span>Vocational &amp; Trade Training</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Corporate Learning & Development"><span>Corporate Learning &amp; Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Curriculum & Instructional Design"><span>Curriculum &amp; Instructional Design</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Special Education"><span>Special Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Tutoring & Academic Coaching"><span>Tutoring &amp; Academic Coaching</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="E-Learning & Online Education"><span>E-Learning &amp; Online Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Literacy & Adult Education"><span>Literacy &amp; Adult Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sports Coaching & Physical Education"><span>Sports Coaching &amp; Physical Education</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Language Instruction"><span>Language Instruction</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Educational / Motivational Speaking"><span>Educational / Motivational Speaking</span></label>
+
+            <div class="filter-industry-header">Engineering &amp; Skilled Trades</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Civil & Structural Engineering"><span>Civil &amp; Structural Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Mechanical Engineering"><span>Mechanical Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Electrical Engineering"><span>Electrical Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Chemical Engineering"><span>Chemical Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Aerospace & Aeronautical Engineering"><span>Aerospace &amp; Aeronautical Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Environmental Engineering"><span>Environmental Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Biomedical Engineering"><span>Biomedical Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Industrial & Manufacturing Engineering"><span>Industrial &amp; Manufacturing Engineering</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Robotics & Automation"><span>Robotics &amp; Automation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Plumbing & Pipefitting"><span>Plumbing &amp; Pipefitting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Electrical Trades"><span>Electrical Trades</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Carpentry & Woodworking"><span>Carpentry &amp; Woodworking</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Welding & Metal Fabrication"><span>Welding &amp; Metal Fabrication</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="HVAC & Refrigeration"><span>HVAC &amp; Refrigeration</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Masonry & Concrete"><span>Masonry &amp; Concrete</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Automotive & Heavy Equipment"><span>Automotive &amp; Heavy Equipment</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Moving / Storage"><span>Moving / Storage</span></label>
+
+            <div class="filter-industry-header">Legal</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Corporate Law"><span>Corporate Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Employment & Labour Law"><span>Employment &amp; Labour Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Criminal Law"><span>Criminal Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Family Law"><span>Family Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Real Estate & Property Law"><span>Real Estate &amp; Property Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Intellectual Property & Patents"><span>Intellectual Property &amp; Patents</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Immigration Law"><span>Immigration Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Tax Law"><span>Tax Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Environmental Law"><span>Environmental Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Litigation & Dispute Resolution"><span>Litigation &amp; Dispute Resolution</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Compliance & Regulatory Affairs"><span>Compliance &amp; Regulatory Affairs</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Paralegal & Legal Support"><span>Paralegal &amp; Legal Support</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Notary & Conveyancing"><span>Notary &amp; Conveyancing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="International & Trade Law"><span>International &amp; Trade Law</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Insurance Law"><span>Insurance Law</span></label>
+
+            <div class="filter-industry-header">Real Estate &amp; Construction</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Residential Real Estate"><span>Residential Real Estate</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Commercial Real Estate"><span>Commercial Real Estate</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Industrial Real Estate"><span>Industrial Real Estate</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Property Management"><span>Property Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Real Estate Development"><span>Real Estate Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Urban Planning & Zoning"><span>Urban Planning &amp; Zoning</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="General Contracting"><span>General Contracting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Project Management (Construction)"><span>Project Management (Construction)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Surveying & Land Assessment"><span>Surveying &amp; Land Assessment</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Appraisal & Valuation"><span>Appraisal &amp; Valuation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Interior Fit-Out & Renovation"><span>Interior Fit-Out &amp; Renovation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Residential Disputes"><span>Residential Disputes</span></label>
+
+            <div class="filter-industry-header">Hospitality, Food &amp; Tourism</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Hotels & Resorts"><span>Hotels &amp; Resorts</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Restaurants & Food Service"><span>Restaurants &amp; Food Service</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Catering & Events"><span>Catering &amp; Events</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Travel & Tourism"><span>Travel &amp; Tourism</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Airlines & Aviation"><span>Airlines &amp; Aviation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Rail Transport"><span>Rail Transport</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cruise & Maritime"><span>Cruise &amp; Maritime</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Bars & Nightlife"><span>Bars &amp; Nightlife</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Bakeries & Specialty Food"><span>Bakeries &amp; Specialty Food</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Food & Beverage Manufacturing"><span>Food &amp; Beverage Manufacturing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Culinary Arts & Chef Services"><span>Culinary Arts &amp; Chef Services</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Tourism Operations & Guiding"><span>Tourism Operations &amp; Guiding</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Entertainment"><span>Entertainment (concerts, plays, comedy, exhibits, etc.)</span></label>
+
+            <div class="filter-industry-header">Non-Profit, Government &amp; Public Sector</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Charities & NGOs"><span>Charities &amp; NGOs</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Social Services & Community Development"><span>Social Services &amp; Community Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="International Aid & Development"><span>International Aid &amp; Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Environmental & Conservation Organizations"><span>Environmental &amp; Conservation Organizations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Arts & Culture Organizations"><span>Arts &amp; Culture Organizations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Government — Federal"><span>Government — Federal</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Government — Provincial / State"><span>Government — Provincial / State</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Government — Municipal"><span>Government — Municipal</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Military & Defense"><span>Military &amp; Defense</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Emergency Services"><span>Emergency Services (Fire, Police, Paramedic)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Public Policy & Advocacy"><span>Public Policy &amp; Advocacy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Grant Writing & Fundraising"><span>Grant Writing &amp; Fundraising</span></label>
+
+            <div class="filter-industry-header">Science &amp; Research</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Academic Research"><span>Academic Research</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Physics & Mathematics"><span>Physics &amp; Mathematics</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Chemistry"><span>Chemistry</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Biology & Life Sciences"><span>Biology &amp; Life Sciences</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Environmental & Earth Sciences"><span>Environmental &amp; Earth Sciences</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Astronomy & Space Science"><span>Astronomy &amp; Space Science</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Social Sciences"><span>Social Sciences</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Psychology & Behavioural Science"><span>Psychology &amp; Behavioural Science</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Neuroscience"><span>Neuroscience</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Economics & Econometrics"><span>Economics &amp; Econometrics</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Materials Science"><span>Materials Science</span></label>
+
+            <div class="filter-industry-header">Logistics, Supply Chain &amp; Transportation</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Supply Chain Management"><span>Supply Chain Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Warehouse & Fulfillment"><span>Warehouse &amp; Fulfillment</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Freight & Shipping"><span>Freight &amp; Shipping</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Customs & Import/Export"><span>Customs &amp; Import/Export</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Procurement & Purchasing"><span>Procurement &amp; Purchasing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Fleet Management"><span>Fleet Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Commercial Railway & Transit"><span>Commercial Railway &amp; Transit</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Trucking & Last-Mile Delivery"><span>Trucking &amp; Last-Mile Delivery</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Port & Harbour Operations"><span>Port &amp; Harbour Operations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cold Chain & Perishables"><span>Cold Chain &amp; Perishables</span></label>
+
+            <div class="filter-industry-header">Human Resources &amp; Recruiting</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Talent Acquisition & Recruiting"><span>Talent Acquisition &amp; Recruiting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="HR Generalist & People Operations"><span>HR Generalist &amp; People Operations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Compensation & Benefits"><span>Compensation &amp; Benefits</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Diversity, Equity & Inclusion"><span>Diversity, Equity &amp; Inclusion</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Employee Relations"><span>Employee Relations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="HR Technology (HRIS)"><span>HR Technology (HRIS)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Organizational Development"><span>Organizational Development</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Payroll & Administration"><span>Payroll &amp; Administration</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Workforce Planning"><span>Workforce Planning</span></label>
+
+            <div class="filter-industry-header">Energy &amp; Environment</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Oil & Gas"><span>Oil &amp; Gas (Upstream, Midstream, Downstream)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Renewable Energy — Solar"><span>Renewable Energy — Solar</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Renewable Energy — Wind"><span>Renewable Energy — Wind</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Renewable Energy — Hydro"><span>Renewable Energy — Hydro</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Nuclear Energy"><span>Nuclear Energy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Energy Trading & Markets"><span>Energy Trading &amp; Markets</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Environmental Consulting"><span>Environmental Consulting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Waste Management & Recycling"><span>Waste Management &amp; Recycling</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Water Treatment & Management"><span>Water Treatment &amp; Management</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sustainability & ESG Consulting"><span>Sustainability &amp; ESG Consulting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Mining & Extraction"><span>Mining &amp; Extraction</span></label>
+
+            <div class="filter-industry-header">Retail &amp; Consumer Goods</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="E-Commerce"><span>E-Commerce</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Brick & Mortar Retail"><span>Brick &amp; Mortar Retail</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Luxury Goods"><span>Luxury Goods</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Grocery & Supermarket"><span>Grocery &amp; Supermarket</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Consumer Packaged Goods (CPG)"><span>Consumer Packaged Goods (CPG)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Fast Fashion & Apparel"><span>Fast Fashion &amp; Apparel</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Beauty & Personal Care"><span>Beauty &amp; Personal Care</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sporting Goods & Outdoor"><span>Sporting Goods &amp; Outdoor</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Home & Furniture"><span>Home &amp; Furniture</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Toys & Hobbies"><span>Toys &amp; Hobbies</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Cannabis and Alcohol Sales"><span>Cannabis and Alcohol Sales</span></label>
+
+            <div class="filter-industry-header">Sports, Fitness &amp; Wellness</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Professional Sports Organizations"><span>Professional Sports Organizations</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Fitness & Personal Training"><span>Fitness &amp; Personal Training</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sports Management & Agency"><span>Sports Management &amp; Agency</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Nutrition & Dietetics"><span>Nutrition &amp; Dietetics</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Yoga & Mindfulness"><span>Yoga &amp; Mindfulness</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Physiotherapy & Rehabilitation"><span>Physiotherapy &amp; Rehabilitation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Outdoor Recreation"><span>Outdoor Recreation</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Sports Media & Broadcasting"><span>Sports Media &amp; Broadcasting</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Recreational Sports Organizations"><span>Recreational Sports Organizations</span></label>
+
+            <div class="filter-industry-header">Agriculture &amp; Food Production</div>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Crop Farming"><span>Crop Farming</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Livestock & Dairy"><span>Livestock &amp; Dairy</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Aquaculture & Fishing"><span>Aquaculture &amp; Fishing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Forestry & Timber"><span>Forestry &amp; Timber</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Organic & Sustainable Farming"><span>Organic &amp; Sustainable Farming</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Food Processing & Manufacturing"><span>Food Processing &amp; Manufacturing</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Vineyards and Winemaking"><span>Vineyards and Winemaking</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Distilleries"><span>Distilleries (beer and liquor)</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Greenhouse & Vertical Farming"><span>Greenhouse &amp; Vertical Farming</span></label>
+            <label class="filter-check filter-sub"><input type="checkbox" name="industry" value="Residential Farming"><span>Residential Farming</span></label>
+
+          </div><!-- /#filterIndustryScroll -->
         </div>
       </div>
 
